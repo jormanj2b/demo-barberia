@@ -215,3 +215,9 @@ address{font-style:normal;margin:1rem 0 1.6rem;font-weight:600}
 
 /* img-placeholder */
 img:not([src$=".svg"]){background-color:var(--bone-2)}
+/* ronda 2: aviso de cookies alineado con la columna del pie */
+.foot>.ck-foot{max-width:var(--wrap);margin:.6rem auto 0;padding:0 20px}
+/* ronda 2: áreas táctiles de 44 px en el menú sin mover el diseño */
+.top nav a:not(.btn){padding-block:.75rem}
+.top nav a:not(.btn)::after{bottom:.5rem}
+.skip{display:inline-flex;align-items:center;min-height:44px}
