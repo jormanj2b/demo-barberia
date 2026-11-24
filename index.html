@@ -118,12 +118,12 @@
         <legend><span class="n">4</span> Tus datos</legend>
         <div class="fields">
           <label for="nombre">Nombre</label>
-          <input id="nombre" name="nombre" autocomplete="given-name" required maxlength="60">
-          <p class="error" id="err-nombre" hidden>Escribe tu nombre para la reserva.</p>
+          <input id="nombre" name="nombre" autocomplete="given-name" required minlength="2" maxlength="60" pattern="\p{L}(?:[\p{L}\p{M}]|[' ’\-](?=\p{L}))*" spellcheck="false" aria-describedby="err-nombre">
+          <p class="error" id="err-nombre" aria-live="polite" hidden>Escribe tu nombre para la reserva.</p>
           <label for="telefono">Teléfono móvil</label>
-          <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" aria-describedby="help-tel">
+          <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="16" pattern="\+?[0-9]{9,15}" aria-describedby="help-tel err-telefono">
           <p class="help" id="help-tel">Solo para avisarte si hay un cambio de hora. Nueve dígitos.</p>
-          <p class="error" id="err-telefono" hidden>Revisa el teléfono: necesita al menos 9 dígitos.</p>
+          <p class="error" id="err-telefono" aria-live="polite" hidden>Revisa el teléfono: necesita al menos 9 dígitos.</p>
         </div>
       </fieldset>
       <aside class="summary" aria-live="polite">
@@ -191,7 +191,7 @@
     <p>Sitio hecho por <a href="https://jormanj2b.github.io/">Jorman Bravo · Desarrollo web</a></p>
   </div>
 </footer>
-<script src="app.js" defer></script>
+<script src="app.js?v=2" defer></script>
 <script src="reveal.js" defer></script>
 </body>
 </html>

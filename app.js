@@ -29,6 +29,63 @@
     return n;
   }
   function $(id) { return document.getElementById(id); }
+  // Validación de campos: ayuda a quien escribe y evita datos raros. La protección de verdad es que
+  // todo lo que escribe el usuario se muestra con textContent, nunca como HTML.
+  var NAME_RE = /^\p{L}(?:[\p{L}\p{M}]|['’ -](?=\p{L}))*$/u;
+  function clean(v) { return String(v || '').normalize('NFC').replace(/[\u0000-\u001F\u007F-\u009F\u200B-\u200F\u2028\u2029\uFEFF]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function cleanLong(v) { return String(v || '').normalize('NFC').replace(/[\u0000-\u0009\u000B-\u001F\u007F-\u009F\u200B-\u200F\u2028\u2029\uFEFF]/g, '').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim(); }
+  function nameMsg(v, min, max, empty) {
+    if (!v) return empty;
+    if (/[^\p{L}\p{M}\d '’-]/u.test(v)) return 'Usa solo letras, espacios, apóstrofes y guiones (sin símbolos como < > / ; =).';
+    if (/\d/.test(v)) return 'El nombre no puede llevar números.';
+    if (!NAME_RE.test(v)) return 'Usa solo letras, espacios, apóstrofes y guiones.';
+    if (v.length < min) return 'Escribe al menos ' + min + ' letras.';
+    if (v.length > max) return 'Máximo ' + max + ' caracteres.';
+    return '';
+  }
+  function phoneMsg(v, min, short) {
+    if (/(?!^\+)\D/.test(v)) return 'El teléfono solo lleva números (y + al inicio para el código de país).';
+    var d = v.replace(/\D/g, '');
+    if (d.length < min) return short;
+    if (d.length > 15) return 'Sobran dígitos: revisa el número.';
+    return '';
+  }
+  function textMsg(v, max) {
+    if (/[<>]/.test(v)) return 'Sin los signos < y >, por favor.';
+    if (max && v.length > max) return 'Máximo ' + max + ' caracteres.';
+    return '';
+  }
+  function isCharMsg(m) { return /números|Usa solo|solo lleva|solo acepta|signos/.test(m); }
+  // Valida al escribir solo si hay un carácter no permitido (o si el campo ya estaba marcado), y siempre al salir del campo
+  function live(input, rule, show) {
+    input.addEventListener('input', function () { var m = rule(input.value); if (input.getAttribute('aria-invalid') === 'true' || isCharMsg(m)) show(m); });
+    input.addEventListener('blur', function () { if (input.value) show(rule(input.value)); });
+  }
+  // Filtro al escribir o pegar: quita lo que no corresponde al tipo de campo y lo avisa.
+  var FILTERS = {
+    name: [/[^\p{L}\p{M} '’-]/gu, 'Este campo solo acepta letras, espacios, apóstrofes y guiones.'],
+    digits: [/\D/g, 'Este campo solo acepta números.'],
+    phone: [/(?!^\+)\D/g, 'El teléfono solo acepta números (y + al inicio para el código de país).'],
+    user: [/[^A-Za-z0-9._-]/g, 'El usuario solo lleva letras sin acentos, números, puntos y guiones.'],
+    text: [/[<>]/g, 'Los signos < y > no están permitidos.']
+  };
+  function filter(input, kind, show) {
+    input.addEventListener('input', function () {
+      var k = typeof kind === 'function' ? kind() : kind, f = FILTERS[k];
+      if (!f) return;
+      var v = input.value, c = v.replace(f[0], '');
+      if (c === v) return;
+      var pos = Math.max(0, (input.selectionStart || c.length) - (v.length - c.length));
+      input.value = c;
+      try { input.setSelectionRange(pos, pos); } catch (e) {}
+      if (show) show(f[1]);
+    });
+  }
+  // Campos type=number: bloquea e, E, +, -, punto y coma (el navegador sí los deja escribir)
+  function digitsOnlyNumber(input) {
+    input.addEventListener('keydown', function (e) { if (['e', 'E', '+', '-', '.', ','].indexOf(e.key) > -1) e.preventDefault(); });
+    input.addEventListener('paste', function (e) { var t = (e.clipboardData || window.clipboardData).getData('text'); if (/\D/.test(t)) e.preventDefault(); });
+  }
   function eur(v) { return v.toLocaleString('es-ES') + ' €'; }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function hhmm(m) { return pad(Math.floor(m / 60)) + ':' + pad(m % 60); }
@@ -145,14 +202,24 @@
     q('total').textContent = state.service ? eur(state.service.price) : '—';
   }
 
-  function showErr(id, show) { var e = $('err-' + id); if (e) e.hidden = !show; var i = $(id); if (i) i.setAttribute('aria-invalid', show ? 'true' : 'false'); }
+  function showErr(id, msg) { var e = $('err-' + id); if (e) { e.textContent = msg || ''; e.hidden = !msg; } var i = $(id); if (i) i.setAttribute('aria-invalid', msg ? 'true' : 'false'); }
+  var fieldRules = {
+    nombre: function (v) { return nameMsg(clean(v), 2, 60, 'Escribe tu nombre para la reserva.'); },
+    telefono: function (v) { return phoneMsg(clean(v), 9, 'Revisa el teléfono: necesita al menos 9 dígitos.'); }
+  };
+  // Aviso al momento si se cuela un número en el nombre o una letra en el teléfono
+  Object.keys(fieldRules).forEach(function (k) { live($(k), fieldRules[k], function (m) { showErr(k, m); }); });
+  filter($('nombre'), 'name', function (m) { showErr('nombre', m); });
+  filter($('telefono'), 'phone', function (m) { showErr('telefono', m); });
 
   var form = $('booking'), gen = $('err-general');
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
-    var nombre = $('nombre').value.trim(), tel = $('telefono').value.replace(/[^\d+]/g, '');
-    var okN = nombre.length >= 2, okT = tel.replace(/\D/g, '').length >= 9;
-    showErr('nombre', !okN); showErr('telefono', !okT);
+    var nombre = clean($('nombre').value), telRaw = clean($('telefono').value);
+    $('nombre').value = nombre; $('telefono').value = telRaw;
+    var mN = fieldRules.nombre(nombre), mT = fieldRules.telefono(telRaw), okN = !mN, okT = !mT;
+    var tel = telRaw.replace(/[^\d+]/g, '');
+    showErr('nombre', mN); showErr('telefono', mT);
     var missing = [];
     if (!state.service) missing.push('el servicio');
     if (!state.date || state.slot === null) missing.push('el día y la hora');
