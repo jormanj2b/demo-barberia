@@ -26,7 +26,7 @@
 {"@context":"https://schema.org","@type":"BarberShop","name":"Barbería Corte Norte","description":"Barbería en Ruzafa: corte, degradado, barba y afeitado con navaja. Negocio ficticio de demostración.","url":"https://jormanj2b.github.io/demo-barberia/","image":"https://jormanj2b.github.io/demo-barberia/img/og.jpg","priceRange":"12 € – 28 €","address":{"@type":"PostalAddress","streetAddress":"Calle de ejemplo, 00","addressLocality":"Valencia","postalCode":"46006","addressCountry":"ES"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"15:00"}],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Corte clásico"},"price":"18","priceCurrency":"EUR"},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Corte y barba"},"price":"28","priceCurrency":"EUR"}]}
 </script>
 </head>
-<body>
+<body data-reveal=".sec-head, .price-list li, .barber, .step, .summary, .local-photo, .sign, .faq details">
 <a class="skip" href="#reservar">Saltar a la reserva</a>
 <div class="demo-bar">Proyecto de demostración: negocio ficticio. Diseño y desarrollo de <a href="https://jormanj2b.github.io/">Jorman Bravo · Desarrollo web</a></div>
 <header class="top">
@@ -40,8 +40,8 @@
 <main id="inicio">
 <section class="hero">
   <div class="hero-text">
-    <p class="kicker">Ruzafa · Valencia · desde 2014</p>
-    <h1>Corte, barba y toalla caliente.</h1>
+    <p class="kicker"><span class="rule" aria-hidden="true"></span>Ruzafa · Valencia · desde 2014</p>
+    <h1>Corte, barba y <em>toalla caliente.</em></h1>
     <p class="lead">Reserva en un minuto: eliges el servicio, el barbero y la hora que te queda libre. Te llega la confirmación y un recordatorio para tu calendario.</p>
     <div class="hero-cta">
       <a class="btn" href="#reservar">Reservar cita</a>
@@ -52,36 +52,42 @@
       <li><strong>Sáb</strong> 9:00–15:00</li>
     </ul>
   </div>
+  <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="sealpath" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs><circle cx="100" cy="100" r="96"/><text><textPath href="#sealpath">Corte Norte · Ruzafa · Valencia · Desde 2014 ·</textPath></text><g class="seal-icon"><path d="M88 78l24 44M112 78l-24 44"/><circle cx="84" cy="128" r="9"/><circle cx="116" cy="128" r="9"/></g></svg>
   <picture class="hero-img">
     <img src="img/hero-800.webp" srcset="img/hero-800.webp 800w, img/hero-1600.webp 1600w" sizes="(min-width: 900px) 55vw, 100vw" width="1600" height="900" alt="Barbero recortando la barba de un cliente frente a la pared de azulejo verde" fetchpriority="high">
   </picture>
 </section>
 
-<section id="servicios" class="section">
+<div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Corte clásico</span><span>Degradado</span><span>Arreglo de barba</span><span>Afeitado a navaja</span><span>Toalla caliente</span><span>Corte infantil</span><span>Corte clásico</span><span>Degradado</span><span>Arreglo de barba</span><span>Afeitado a navaja</span><span>Toalla caliente</span><span>Corte infantil</span></div></div>
+
+<section id="servicios" class="section board">
   <div class="wrap">
+    <div class="sec-head"><p class="kicker"><span class="rule" aria-hidden="true"></span>La carta</p>
     <h2>Servicios y precios</h2>
-    <p class="sub">Precios cerrados, IVA incluido. El tiempo es el que reservamos para ti en la silla.</p>
+    <p class="sub">Precios cerrados, IVA incluido. El tiempo es el que reservamos para ti en la silla.</p></div>
     <ul class="price-list" id="price-list"></ul>
   </div>
 </section>
 
-<section id="equipo" class="section section-dark">
+<section id="equipo" class="section team-section">
   <div class="wrap">
+    <div class="sec-head"><p class="kicker"><span class="rule" aria-hidden="true"></span>El equipo</p>
     <h2>Quién te atiende</h2>
+    <p class="sub">Tres sillas, tres manos distintas. Si no tienes preferencia, en la reserva eliges «cualquiera».</p></div>
     <div class="team">
       <article class="barber">
         <img src="img/barbero-1-400.webp" srcset="img/barbero-1-400.webp 400w, img/barbero-1-800.webp 800w" sizes="(min-width: 900px) 30vw, 90vw" width="800" height="800" loading="lazy" alt="Andrés Mira, barbero, con delantal verde oliva">
-        <h3>Andrés Mira</h3>
+        <p class="tag">Clásico y navaja</p><h3>Andrés Mira</h3>
         <p>Abrió Corte Norte. Cortes clásicos con tijera y afeitado a navaja.</p>
       </article>
       <article class="barber">
         <img src="img/barbero-2-400.webp" srcset="img/barbero-2-400.webp 400w, img/barbero-2-800.webp 800w" sizes="(min-width: 900px) 30vw, 90vw" width="800" height="800" loading="lazy" alt="Leo Cardona, barbero, sostiene una máquina de cortar pelo">
-        <h3>Leo Cardona</h3>
+        <p class="tag">Degradados</p><h3>Leo Cardona</h3>
         <p>Degradados, texturas y líneas. El que buscas si traes una foto de referencia.</p>
       </article>
       <article class="barber">
         <img src="img/barbero-3-400.webp" srcset="img/barbero-3-400.webp 400w, img/barbero-3-800.webp 800w" sizes="(min-width: 900px) 30vw, 90vw" width="800" height="800" loading="lazy" alt="Nuria Sanz, barbera, con navaja y peine">
-        <h3>Nuria Sanz</h3>
+        <p class="tag">Barba</p><h3>Nuria Sanz</h3>
         <p>Diseño y cuidado de barba. Perfila sin dejarte la cara irritada.</p>
       </article>
     </div>
@@ -90,8 +96,9 @@
 
 <section id="reservar" class="section booking-section" aria-labelledby="reservar-title">
   <div class="wrap">
+    <div class="sec-head"><p class="kicker"><span class="rule" aria-hidden="true"></span>Reserva online</p>
     <h2 id="reservar-title">Reserva tu cita</h2>
-    <p class="sub">Cuatro pasos. Las horas que ves ya tienen en cuenta lo que dura tu servicio.</p>
+    <p class="sub">Cuatro pasos. Las horas que ves ya tienen en cuenta lo que dura tu servicio.</p></div>
     <form id="booking" class="booking" novalidate>
       <fieldset class="step" id="step-servicio">
         <legend><span class="n">1</span> Servicio</legend>
@@ -115,7 +122,7 @@
           <p class="error" id="err-nombre" hidden>Escribe tu nombre para la reserva.</p>
           <label for="telefono">Teléfono móvil</label>
           <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" aria-describedby="help-tel">
-          <p class="help" id="help-tel">Solo para avisarte si hay un cambio. Ejemplo: 612 345 678</p>
+          <p class="help" id="help-tel">Solo para avisarte si hay un cambio de hora. Nueve dígitos.</p>
           <p class="error" id="err-telefono" hidden>Revisa el teléfono: necesita al menos 9 dígitos.</p>
         </div>
       </fieldset>
@@ -148,12 +155,13 @@
 
 <section id="local" class="section local">
   <div class="wrap local-grid">
-    <img src="img/local-800.webp" srcset="img/local-800.webp 800w, img/local-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1200" loading="lazy" alt="Interior de la barbería con dos sillones clásicos y azulejo verde">
+    <figure class="local-photo"><img src="img/local-800.webp" srcset="img/local-800.webp 800w, img/local-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" width="1600" height="1200" loading="lazy" alt="Interior de la barbería con dos sillones clásicos y azulejo verde"></figure>
     <div>
+      <p class="kicker"><span class="rule" aria-hidden="true"></span>Dónde estamos</p>
       <h2>El local</h2>
       <p>Dos sillones, un banco de madera y café mientras esperas. Estamos a cinco minutos del Mercado de Ruzafa.</p>
       <address>Calle de ejemplo, 00 · 46006 Valencia<br><span class="fine">Dirección ficticia de la demo</span></address>
-      <table class="hours">
+      <div class="sign"><table class="hours">
         <caption>Horario</caption>
         <tbody>
           <tr><th scope="row">Lunes</th><td>Cerrado</td></tr>
@@ -161,14 +169,14 @@
           <tr><th scope="row">Sábado</th><td>9:00 – 15:00</td></tr>
           <tr><th scope="row">Domingo</th><td>Cerrado</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 </section>
 
 <section class="section faq">
   <div class="wrap narrow">
-    <h2>Preguntas frecuentes</h2>
+    <div class="sec-head"><p class="kicker"><span class="rule" aria-hidden="true"></span>Dudas</p><h2>Preguntas frecuentes</h2></div>
     <details><summary>¿Y si llego tarde?</summary><p>Te esperamos 10 minutos. Después, si el barbero tiene la siguiente cita, movemos la tuya a la primera hora libre.</p></details>
     <details><summary>¿Atendéis sin cita?</summary><p>Sí, si hay un hueco. Con reserva no esperas.</p></details>
     <details><summary>¿Cómo pago?</summary><p>En el local, con tarjeta, Bizum o efectivo.</p></details>
@@ -184,5 +192,6 @@
   </div>
 </footer>
 <script src="app.js" defer></script>
+<script src="reveal.js" defer></script>
 </body>
 </html>
