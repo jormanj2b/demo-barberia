@@ -132,3 +132,6 @@ address{font-style:normal;margin:1rem 0 1.4rem;font-weight:600}
 .legal h2{font-size:1.8rem;margin-top:2rem}
 .booking>*,.step{min-width:0}
 [tabindex="-1"]:focus{outline:none}
+
+/* img-placeholder */
+img:not([src$=".svg"]){background-color:var(--bone-2)}
