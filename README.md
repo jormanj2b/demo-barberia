@@ -2,9 +2,9 @@
 
 Sistema de reservas para barbería: servicios, barberos, calendario con horas libres, confirmación con archivo de calendario y WhatsApp.
 
-**Sitio en vivo:** https://jormanj2b.github.io/demo-barberia/
+**Sitio en vivo:** https://jormanbravo.com/demo-barberia/
 
-Barbería Corte Norte es un negocio **ficticio**. Este repositorio es una pieza de portafolio de **Jorman Bravo · Desarrollo web** ([portafolio](https://jormanj2b.github.io/)), no el sitio de una empresa real. Las direcciones, personas, precios y testimonios son de ejemplo, y las fotos están generadas para la demo.
+Barbería Corte Norte es un negocio **ficticio**. Este repositorio es una pieza de portafolio de **Jorman Bravo · Desarrollo web** ([portafolio](https://jormanbravo.com/)), no el sitio de una empresa real. Las direcciones, personas, precios y testimonios son de ejemplo, y las fotos están generadas para la demo.
 
 ## Qué incluye
 
@@ -24,4 +24,4 @@ GitHub Pages desde la rama `main`. Para un cliente real se conecta su dominio, s
 
 `en/` is a native English version for US clients (Northside Barber Co., Chicago): prices in $, 12-hour booking times in Chicago time, 10-digit US phone validation, English calendar invite, cookie notice and legal pages. It reuses the root CSS, fonts and photos. Both versions have an ES/EN switch in the top bar.
 
-**Live:** https://jormanj2b.github.io/demo-barberia/en/
+**Live:** https://jormanbravo.com/demo-barberia/en/
