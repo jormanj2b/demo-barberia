@@ -221,3 +221,7 @@ img:not([src$=".svg"]){background-color:var(--bone-2)}
 .top nav a:not(.btn){padding-block:.75rem}
 .top nav a:not(.btn)::after{bottom:.5rem}
 .skip{display:inline-flex;align-items:center;min-height:44px}
+
+/* ES/EN */
+.lang-switch{display:inline-block;margin-left:.6rem;padding:.15rem .7rem;border:1px solid currentColor;border-radius:999px;font-weight:600;text-decoration:none;line-height:1.5}
+.lang-switch:hover{text-decoration:underline}

@@ -19,3 +19,9 @@ Barbería Corte Norte es un negocio **ficticio**. Este repositorio es una pieza 
 GitHub Pages desde la rama `main`. Para un cliente real se conecta su dominio, se cambian los datos de ejemplo y se añade el número de WhatsApp o el servicio de formularios que use el negocio.
 
 © 2026 Jorman Bravo. Código de muestra para portafolio.
+
+## English version
+
+`en/` is a native English version for US clients (Northside Barber Co., Chicago): prices in $, 12-hour booking times in Chicago time, 10-digit US phone validation, English calendar invite, cookie notice and legal pages. It reuses the root CSS, fonts and photos. Both versions have an ES/EN switch in the top bar.
+
+**Live:** https://jormanj2b.github.io/demo-barberia/en/
